@@ -44,6 +44,9 @@
                                                 <real key="value" value="15"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="xFU-1l-DGe" kind="show" id="Wnf-W9-YLd"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZq-jl-Q8s" customClass="CustomUIButton" customModule="ARKitSelfieApplication" customModuleProvider="target">
                                         <rect key="frame" x="176" y="0.0" width="167" height="40"/>
@@ -88,18 +91,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="117.39130434782609"/>
+            <point key="canvasLocation" x="-23" y="116"/>
         </scene>
-        <!--View Controller-->
+        <!--KitVC-->
         <scene sceneID="DI3-wZ-6F7">
             <objects>
-                <viewController id="xFU-1l-DGe" sceneMemberID="viewController">
+                <viewController id="xFU-1l-DGe" customClass="ARKitVC" customModule="ARKitSelfieApplication" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mo6-ot-yFI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4m8-lh-pmB">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </arscnView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4m8-lh-pmB" firstAttribute="top" secondItem="gPJ-4O-X9e" secondAttribute="top" id="6Pa-sN-TJF"/>
+                            <constraint firstItem="gPJ-4O-X9e" firstAttribute="bottom" secondItem="4m8-lh-pmB" secondAttribute="bottom" id="WgH-ww-aqs"/>
+                            <constraint firstItem="gPJ-4O-X9e" firstAttribute="trailing" secondItem="4m8-lh-pmB" secondAttribute="trailing" id="h9q-ou-5EB"/>
+                            <constraint firstItem="4m8-lh-pmB" firstAttribute="leading" secondItem="gPJ-4O-X9e" secondAttribute="leading" id="hMZ-p4-JrU"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gPJ-4O-X9e"/>
                     </view>
+                    <connections>
+                        <outlet property="sceneView" destination="4m8-lh-pmB" id="r7f-cY-Cdr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nXZ-f5-GeR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
