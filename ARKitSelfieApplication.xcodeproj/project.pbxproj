@@ -12,6 +12,7 @@
 		84B64ECB1FCEBA710093E579 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B64EC91FCEBA710093E579 /* Main.storyboard */; };
 		84B64ECD1FCEBA710093E579 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B64ECC1FCEBA710093E579 /* Assets.xcassets */; };
 		84B64ED01FCEBA710093E579 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B64ECE1FCEBA710093E579 /* LaunchScreen.storyboard */; };
+		84D7054D1FCECB6F00479474 /* CustomUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D7054C1FCECB6F00479474 /* CustomUIButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		84B64ECC1FCEBA710093E579 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84B64ECF1FCEBA710093E579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B64ED11FCEBA710093E579 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84D7054C1FCECB6F00479474 /* CustomUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		84B64EC41FCEBA700093E579 /* ARKitSelfieApplication */ = {
 			isa = PBXGroup;
 			children = (
+				84D7054B1FCECB4100479474 /* Extension */,
 				84B64EC51FCEBA710093E579 /* AppDelegate.swift */,
 				84B64EC71FCEBA710093E579 /* ViewController.swift */,
 				84B64EC91FCEBA710093E579 /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				84B64ED11FCEBA710093E579 /* Info.plist */,
 			);
 			path = ARKitSelfieApplication;
+			sourceTree = "<group>";
+		};
+		84D7054B1FCECB4100479474 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				84D7054C1FCECB6F00479474 /* CustomUIButton.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +149,7 @@
 			files = (
 				84B64EC81FCEBA710093E579 /* ViewController.swift in Sources */,
 				84B64EC61FCEBA710093E579 /* AppDelegate.swift in Sources */,
+				84D7054D1FCECB6F00479474 /* CustomUIButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
