@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		845FC9EA1FCED8ED005036FB /* ARKitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845FC9E91FCED8ED005036FB /* ARKitVC.swift */; };
+		84A068AB1FD69AC40077341A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A068AA1FD69AC40077341A /* art.scnassets */; };
+		84A068B21FD6A5C60077341A /* ARVideoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A068B11FD6A5C60077341A /* ARVideoKit.framework */; };
+		84A068B31FD6A5C60077341A /* ARVideoKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 84A068B11FD6A5C60077341A /* ARVideoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		84B64EC61FCEBA710093E579 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B64EC51FCEBA710093E579 /* AppDelegate.swift */; };
 		84B64EC81FCEBA710093E579 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B64EC71FCEBA710093E579 /* HomeVC.swift */; };
 		84B64ECB1FCEBA710093E579 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B64EC91FCEBA710093E579 /* Main.storyboard */; };
@@ -16,8 +19,24 @@
 		84D7054D1FCECB6F00479474 /* CustomUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D7054C1FCECB6F00479474 /* CustomUIButton.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		84A068AF1FD69D9A0077341A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				84A068B31FD6A5C60077341A /* ARVideoKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		845FC9E91FCED8ED005036FB /* ARKitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARKitVC.swift; sourceTree = "<group>"; };
+		84A068AA1FD69AC40077341A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		84A068B11FD6A5C60077341A /* ARVideoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARVideoKit.framework; path = Framework/ARVideoKit.framework; sourceTree = "<group>"; };
 		84B64EC21FCEBA700093E579 /* ARKitSelfieApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitSelfieApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B64EC51FCEBA710093E579 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B64EC71FCEBA710093E579 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -33,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A068B21FD6A5C60077341A /* ARVideoKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +62,7 @@
 		84B64EB91FCEBA700093E579 = {
 			isa = PBXGroup;
 			children = (
+				84A068B11FD6A5C60077341A /* ARVideoKit.framework */,
 				84B64EC41FCEBA700093E579 /* ARKitSelfieApplication */,
 				84B64EC31FCEBA700093E579 /* Products */,
 			);
@@ -66,6 +87,7 @@
 				84B64ECC1FCEBA710093E579 /* Assets.xcassets */,
 				84B64ECE1FCEBA710093E579 /* LaunchScreen.storyboard */,
 				84B64ED11FCEBA710093E579 /* Info.plist */,
+				84A068AA1FD69AC40077341A /* art.scnassets */,
 			);
 			path = ARKitSelfieApplication;
 			sourceTree = "<group>";
@@ -88,6 +110,8 @@
 				84B64EBE1FCEBA700093E579 /* Sources */,
 				84B64EBF1FCEBA700093E579 /* Frameworks */,
 				84B64EC01FCEBA700093E579 /* Resources */,
+				84A068AF1FD69D9A0077341A /* Embed Frameworks */,
+				84A068B01FD6A3340077341A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -138,12 +162,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				84B64ED01FCEBA710093E579 /* LaunchScreen.storyboard in Resources */,
+				84A068AB1FD69AC40077341A /* art.scnassets in Resources */,
 				84B64ECD1FCEBA710093E579 /* Assets.xcassets in Resources */,
 				84B64ECB1FCEBA710093E579 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		84A068B01FD6A3340077341A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/ARVideoKit.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		84B64EBE1FCEBA700093E579 /* Sources */ = {
@@ -292,6 +334,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SUBZ24DP5B;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				INFOPLIST_FILE = ARKitSelfieApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = IOS.ARKitSelfieApplication;
@@ -307,6 +353,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SUBZ24DP5B;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				INFOPLIST_FILE = ARKitSelfieApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = IOS.ARKitSelfieApplication;

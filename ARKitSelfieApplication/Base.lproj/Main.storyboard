@@ -104,13 +104,26 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4m8-lh-pmB">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </arscnView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unR-gA-eBM">
+                                <rect key="frame" x="162.5" y="617" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="85h-Jc-4al"/>
+                                    <constraint firstAttribute="height" constant="50" id="FE9-RZ-asx"/>
+                                </constraints>
+                                <state key="normal" image="camera"/>
+                                <connections>
+                                    <action selector="capture:" destination="xFU-1l-DGe" eventType="touchUpInside" id="Pg9-nK-zYB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="unR-gA-eBM" firstAttribute="centerX" secondItem="mo6-ot-yFI" secondAttribute="centerX" id="3Tk-Ad-KWs"/>
                             <constraint firstItem="4m8-lh-pmB" firstAttribute="top" secondItem="gPJ-4O-X9e" secondAttribute="top" id="6Pa-sN-TJF"/>
                             <constraint firstItem="gPJ-4O-X9e" firstAttribute="bottom" secondItem="4m8-lh-pmB" secondAttribute="bottom" id="WgH-ww-aqs"/>
                             <constraint firstItem="gPJ-4O-X9e" firstAttribute="trailing" secondItem="4m8-lh-pmB" secondAttribute="trailing" id="h9q-ou-5EB"/>
                             <constraint firstItem="4m8-lh-pmB" firstAttribute="leading" secondItem="gPJ-4O-X9e" secondAttribute="leading" id="hMZ-p4-JrU"/>
+                            <constraint firstItem="gPJ-4O-X9e" firstAttribute="bottom" secondItem="unR-gA-eBM" secondAttribute="bottom" id="ink-mY-WXO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gPJ-4O-X9e"/>
                     </view>
@@ -120,11 +133,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nXZ-f5-GeR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="740" y="117"/>
+            <point key="canvasLocation" x="740" y="116.49175412293854"/>
         </scene>
     </scenes>
     <resources>
         <image name="AppLogo" width="301" height="305"/>
         <image name="Home" width="960" height="600"/>
+        <image name="camera" width="24" height="24"/>
     </resources>
 </document>
