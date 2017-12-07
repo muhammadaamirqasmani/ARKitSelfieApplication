@@ -12,7 +12,7 @@ import ARVideoKit
 import Photos
 
 
-class CameraARKitVC: UIViewController, ARSCNViewDelegate, RenderARDelegate, RecordARDelegate, UICollectionViewDataSource , UICollectionViewDelegate{
+class CameraARKitVC: UIViewController, ARSCNViewDelegate,RenderARDelegate, RecordARDelegate,  UICollectionViewDataSource , UICollectionViewDelegate{
 
 
     
@@ -22,22 +22,27 @@ class CameraARKitVC: UIViewController, ARSCNViewDelegate, RenderARDelegate, Reco
     
     let caprturingQueue = DispatchQueue(label: "capturingThread", attributes: .concurrent)
     var recorder:RecordAR?
+    
+    // Create a session configuration
+    let configuration = ARWorldTrackingConfiguration()
     let itemsArray: [String] = ["goku","cup", "vase", "boxing", "table"]
     var selectedItem: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
-        
+        self.sceneView.autoenablesDefaultLighting = true
         self.sceneView.delegate = self
         
         modelCollection.delegate = self
         modelCollection.dataSource = self
+        
+        self.registerGestureRecognizers()
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/goku.scn")!
-        // Set the scene to the view
-        sceneView.scene = scene
-        sceneView.scene.rootNode.scale = SCNVector3(0.2, 0.2, 0.2)
+//        let scene = SCNScene(named: "art.scnassets/goku.scn")!
+//        // Set the scene to the view
+//        sceneView.scene = scene
+//        sceneView.scene.rootNode.scale = SCNVector3(0.2, 0.2, 0.2)
 
 //         Initialize ARVideoKit recorder
         recorder = RecordAR(ARSceneKit: sceneView)
@@ -63,20 +68,67 @@ class CameraARKitVC: UIViewController, ARSCNViewDelegate, RenderARDelegate, Reco
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
+        
+        
+        self.configuration.planeDetection = .horizontal
         // Run the view's session
         sceneView.session.run(configuration)
         
         // Prepare the recorder with sessions configuration
-//        recorder?.prepare(configuration)
+        recorder?.prepare(configuration)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Pause the view's session
         sceneView.session.pause()
+    }
+    
+    func registerGestureRecognizers() {
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinch))
+        self.sceneView.addGestureRecognizer(pinchGestureRecognizer)
+        self.sceneView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func pinch(sender: UIPinchGestureRecognizer) {
+        let sceneView = sender.view as! ARSCNView
+        let pinchLocation = sender.location(in: sceneView)
+        let hitTest = sceneView.hitTest(pinchLocation)
+        
+        if !hitTest.isEmpty {
+            
+            let results = hitTest.first!
+            let node = results.node
+            let pinchAction = SCNAction.scale(by: sender.scale, duration: 0)
+            print(sender.scale)
+            node.runAction(pinchAction)
+            sender.scale = 1.0
+        }
+        
+        
+    }
+    
+    @objc func tapped(sender: UITapGestureRecognizer) {
+        let sceneView = sender.view as! ARSCNView
+        let tapLocation = sender.location(in: sceneView)
+        let hitTest = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
+        if !hitTest.isEmpty {
+            self.addItem(hitTestResult: hitTest.first!)
+        }
+    }
+    
+    func addItem(hitTestResult: ARHitTestResult) {
+        if let selectedItem = self.selectedItem {
+            let scene = SCNScene(named: "art.scnassets/\(selectedItem).scn")
+            let node = (scene?.rootNode.childNode(withName: selectedItem, recursively: false))!
+            let transform = hitTestResult.worldTransform
+            let thirdColumn = transform.columns.3
+            node.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
+            self.sceneView.scene.rootNode.addChildNode(node)
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -99,25 +151,25 @@ class CameraARKitVC: UIViewController, ARSCNViewDelegate, RenderARDelegate, Reco
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let planeAnchor = anchor as? ARPlaneAnchor else {return}
+        guard anchor is ARPlaneAnchor else {return}
         
-        let planeNode = createPlane(withPlaneAnchor: planeAnchor)
-        
-        node.addChildNode(planeNode)
+//        let planeNode = createPlane(withPlaneAnchor: planeAnchor)
+//
+//        node.addChildNode(planeNode)
     }
     
-    func createPlane(withPlaneAnchor planeAnchor: ARPlaneAnchor) -> SCNNode {
-        let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
-        let planeNode = SCNNode()
-        planeNode.position = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
-        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
-        let gridMaterial = SCNMaterial()
-        gridMaterial.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
-        plane.materials = [gridMaterial]
-        planeNode.geometry = plane
-        
-        return planeNode
-    }
+//    func createPlane(withPlaneAnchor planeAnchor: ARPlaneAnchor) -> SCNNode {
+//        let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
+//        let planeNode = SCNNode()
+//        planeNode.position = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
+//        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
+//        let gridMaterial = SCNMaterial()
+//        gridMaterial.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
+//        plane.materials = [gridMaterial]
+//        planeNode.geometry = plane
+//
+//        return planeNode
+//    }
     
     // MARK: - Hide Status Bar
     override var prefersStatusBarHidden: Bool {
@@ -180,7 +232,7 @@ class CameraARKitVC: UIViewController, ARSCNViewDelegate, RenderARDelegate, Reco
                          // Do something with the `photo` (PHLivePhotoPlus)
                          }
                          */
-                        
+
                         if saved {
                             // Inform user Live Photo has exported successfully
                             self.exportMessage(success: saved, status: status!)
@@ -197,7 +249,7 @@ class CameraARKitVC: UIViewController, ARSCNViewDelegate, RenderARDelegate, Reco
                      // Do something with the `gifPath`
                      }
                      */
-                    
+
                     if saved {
                         // Inform user GIF image has exported successfully
                         self.exportMessage(success: saved, status: status!)
@@ -210,17 +262,17 @@ class CameraARKitVC: UIViewController, ARSCNViewDelegate, RenderARDelegate, Reco
     func frame(didRender buffer: CVPixelBuffer, with time: CMTime, using rawBuffer: CVPixelBuffer) {
         // Do some image/video processing.
     }
-    
+
     func recorder(didEndRecording path: URL, with noError: Bool) {
         if noError {
             // Do something with the video path.
         }
     }
-    
+
     func recorder(didFailRecording error: Error?, and status: String) {
         // Inform user an error occurred while recording.
     }
-    
+
     func recorder(willEnterBackground status: RecordARStatus) {
         // Use this method to pause or stop video recording. Check [applicationWillResignActive(_:)](https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622950-applicationwillresignactive) for more information.
         if status == .recording {
@@ -229,6 +281,10 @@ class CameraARKitVC: UIViewController, ARSCNViewDelegate, RenderARDelegate, Reco
     }
     
     
+}
+extension Int {
+    
+    var degreesToRadians: Double { return Double(self) * .pi/180}
 }
 
 
