@@ -31,6 +31,8 @@ class CameraARKitVC: UIViewController, ARSCNViewDelegate, RenderARDelegate, Reco
         
         self.sceneView.delegate = self
         
+        modelCollection.delegate = self
+        modelCollection.dataSource = self
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/goku.scn")!
         // Set the scene to the view
